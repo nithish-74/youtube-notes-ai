@@ -1,0 +1,19 @@
+# Free tier (512MB RAM — may be tight; Hugging Face Spaces is a better free option)
+services:
+  - type: web
+    name: youtube-notes-ai
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: >-
+      pip install torch --index-url https://download.pytorch.org/whl/cpu &&
+      pip install -r requirements.txt
+    startCommand: bash start.sh
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MODEL_NAME
+        value: google/flan-t5-small
+      - key: HF_HUB_DISABLE_SYMLINKS_WARNING
+        value: "1"
